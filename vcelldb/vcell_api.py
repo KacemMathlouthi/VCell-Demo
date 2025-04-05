@@ -5,14 +5,21 @@ BASE_URL = "https://vcell.cam.uchc.edu/api/v0/biomodel"
 
 # Allowed query parameters
 ALLOWED_PARAMS = {
-    "bmName", "bmId", "category", "owner", 
-    "savedLow", "savedHigh", 
-    "startRow", "maxRows", "orderBy"
+    "bmName",
+    "bmId",
+    "category",
+    "owner",
+    "savedLow",
+    "savedHigh",
+    "startRow",
+    "maxRows",
+    "orderBy",
 }
 
 # Valid values for Categories and OrderBy
 VALID_CATEGORIES = {"all", "public", "shared", "tutorials", "educational"}
 VALID_ORDER_BY = {"date_desc", "date_asc", "name_desc", "name_asc"}
+
 
 def query_vcell_models(params: dict):
     """
@@ -25,7 +32,7 @@ def query_vcell_models(params: dict):
             - bmId (str): BioModel ID.
             - category (str): Category of the BioModel. can be 'all', 'public', 'shared', 'tutorials', or 'educational'.
             - owner (str): Owner of the BioModel.
-            - savedLow (str): Start date for the query in YYYY-MM-DD format. 
+            - savedLow (str): Start date for the query in YYYY-MM-DD format.
             - savedHigh (str): End date for the query in YYYY-MM-DD format.
             - startRow (int): The starting row for pagination.
             - maxRows (int): The maximum number of rows to return.

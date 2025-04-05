@@ -1,10 +1,10 @@
 import streamlit as st
 import json
+from PIL import Image
 from utils.params_extraction import get_path_params
 from utils.llm_helper import get_llm_response
 from vcelldb.vcell_api import query_vcell_models
 from vcelldb.diagram import get_diagram_urls, get_bmkeys
-from PIL import Image
 
 favicon = Image.open("misc/favi.ico")
 st.set_page_config(
@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # Header
-col1, col2, col3 = st.columns([1, 4, 1])
+col1, col2, col3 = st.columns([1, 5, 1])
 
 with col1:
     st.image("misc/gsoc.png", width=60)
@@ -42,9 +42,25 @@ with col2:
 
 
 with col3:
-    st.image("misc/NRNB.png", width=200)
+    st.image("misc/NRNB.png", width=300)
+
+st.markdown("""
+    <div style="text-align: center; margin-top: 30px; color: #444;">
+        <p style="font-size: 18px;">💡 Try one of these example prompts:</p>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+            <div style="border: 1px solid #ccc; border-radius: 8px; padding: 10px 16px; background-color: #f8f9fa; font-size: 15px;">
+                List a VCell biomodels authored by the user ion
+            </div>
+            <div style="border: 1px solid #ccc; border-radius: 8px; padding: 10px 16px; background-color: #f8f9fa; font-size: 15px;">
+                Find a VCell biomodel with the id 201844485
+            </div>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
 
 st.markdown("---")
+
+
 
 # Session Initialization
 if "chat_history" not in st.session_state:
@@ -56,7 +72,7 @@ for msg in st.session_state.chat_history:
         st.markdown(msg["content"])
 
 # Chat input
-if prompt := st.chat_input("Ask something about VCell models..."):
+if prompt := st.chat_input("Ask something about VCell biomodels..."):
     st.chat_message("user").markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 

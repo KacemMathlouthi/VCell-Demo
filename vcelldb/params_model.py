@@ -18,12 +18,12 @@ class OrderByEnum(str, Enum):
 
 
 class QueryParams(BaseModel):
-    bmName: Optional[str]
-    bmId: Optional[str]
-    category: Optional[CategoryEnum]
-    owner: Optional[str]
-    savedLow: Optional[str]
-    savedHigh: Optional[str]
-    startRow: Optional[int]
-    maxRows: Optional[int]
-    orderBy: Optional[OrderByEnum]
+    bmName: Optional[str] = None
+    bmId: Optional[str] = None
+    category: Optional[CategoryEnum] = CategoryEnum.all
+    owner: Optional[str] = None
+    savedLow: Optional[str] = None
+    savedHigh: Optional[str] = None
+    startRow: Optional[int] = 1
+    maxRows: Optional[int] = 10
+    orderBy: Optional[OrderByEnum] = OrderByEnum.date_desc

@@ -26,5 +26,5 @@ class QueryParams(BaseModel, use_enum_values=True):
     savedLow: Optional[str] = None
     savedHigh: Optional[str] = None
     startRow: Optional[int] = 1
-    maxRows: Optional[int] = 10
+    maxRows: Optional[int] = 1
     orderBy: Optional[OrderByEnum] = OrderByEnum.date_desc

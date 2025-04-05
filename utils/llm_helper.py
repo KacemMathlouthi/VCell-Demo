@@ -19,3 +19,28 @@ def get_llm_client():
     if llm_client is None:
         llm_client = Groq(api_key=os.environ["LLM_API_KEY"])
     return llm_client
+
+
+def get_llm_response(prompt: str):
+    """
+    This function generates a response from the LLM based on the provided prompt.
+
+    Args:
+        prompt (str): The prompt to send to the LLM.
+
+    Returns:
+        dict: The response from the LLM.
+    """
+    try:
+        client = get_llm_client()
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "system", "content": "You are an AI assistant helping users explore VCell BioModels."},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.4
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Error: {str(e)}"

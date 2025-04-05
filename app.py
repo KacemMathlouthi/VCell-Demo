@@ -3,6 +3,7 @@ import json
 from utils.params_extraction import get_path_params
 from utils.llm_helper import get_llm_response
 from vcelldb.vcell_api import query_vcell_models
+from vcelldb.diagram import get_diagram_urls
 from PIL import Image
 
 favicon = Image.open("misc/favi.ico")
@@ -79,7 +80,7 @@ if prompt := st.chat_input("Ask something about VCell models..."):
             st.chat_message("assistant").markdown(error_msg)
             st.session_state.chat_history.append({"role": "assistant", "content": error_msg})
         else:
-            # Show API data (collapsible)
+            # Show API data
             with st.expander("📦 VCell API Response", expanded=False):
                 st.json(api_data)
 
@@ -100,3 +101,14 @@ Generate a helpful, detailled human-readable summary of the results. Explain the
 
             st.chat_message("assistant").markdown(llm_response)
             st.session_state.chat_history.append({"role": "assistant", "content": llm_response})
+
+            # STEP 4: Show Diagrams
+            diagram_urls = get_diagram_urls(api_data)
+
+            if diagram_urls:
+                st.markdown("**Model Diagram(s):**")
+                for url in diagram_urls:
+                    try:
+                        st.image(url, use_container_width=True)
+                    except:
+                        st.markdown(f"[View Diagram]({url})")

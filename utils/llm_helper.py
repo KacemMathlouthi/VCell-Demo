@@ -72,12 +72,7 @@ def get_path_params(user_prompt: str):
             response_format={"type": "json_object"},
         )
         content = QueryParams.model_validate_json(response.choices[0].message.content)
-        return content
+        params = content.model_dump(exclude_none=True)
+        return params
     except Exception as e:
         return {"error": f"Failed to extract parameters: {str(e)}"}
-
-
-if __name__ == "__main__":
-    user_prompt = "List all VCell biomodels authored by the user mblinov"
-    params = get_path_params(user_prompt)
-    print(params.model_dump(exclude_none=True))  # Full dict, including None values

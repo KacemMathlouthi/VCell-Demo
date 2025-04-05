@@ -17,7 +17,7 @@ class OrderByEnum(str, Enum):
     name_asc = "name_asc"
 
 
-class QueryParams(BaseModel):
+class QueryParams(BaseModel, use_enum_values=True):
     bmName: Optional[str] = None
     bmId: Optional[str] = None
     category: Optional[CategoryEnum] = CategoryEnum.all

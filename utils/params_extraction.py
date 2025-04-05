@@ -23,6 +23,7 @@ The JSON object must follow this schema:\n{json.dumps(QueryParams.model_json_sch
 Respond only with a JSON object. Do not explain anything else.
 """
 
+
 def get_path_params(user_prompt: str):
     """
     This function extracts the path parameters from the user prompt.

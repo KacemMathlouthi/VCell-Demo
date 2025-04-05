@@ -3,17 +3,19 @@ import json
 from utils.params_extraction import get_path_params
 from utils.llm_helper import get_llm_response
 from vcelldb.vcell_api import query_vcell_models
-from vcelldb.diagram import get_diagram_urls
+from vcelldb.diagram import get_diagram_urls, get_bmkeys
 from PIL import Image
 
 favicon = Image.open("misc/favi.ico")
-st.set_page_config(page_title="VCell Chatbot Demo", page_icon=favicon, layout="centered")
+st.set_page_config(
+    page_title="VCell Chatbot Demo", page_icon=favicon, layout="centered"
+)
 
 # Header
 col1, col2, col3 = st.columns([1, 4, 1])
 
 with col1:
-    st.image("misc/gsoc.png", width=60)  
+    st.image("misc/gsoc.png", width=60)
 
 with col2:
     st.markdown(
@@ -35,12 +37,12 @@ with col2:
             </a>
         </p>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
 
 with col3:
-    st.image("misc/NRNB.png", width=200) 
+    st.image("misc/NRNB.png", width=200)
 
 st.markdown("---")
 
@@ -65,7 +67,9 @@ if prompt := st.chat_input("Ask something about VCell models..."):
     if "error" in extracted_params:
         error_msg = f"Error extracting features: {extracted_params['error']}"
         st.chat_message("assistant").markdown(error_msg)
-        st.session_state.chat_history.append({"role": "assistant", "content": error_msg})
+        st.session_state.chat_history.append(
+            {"role": "assistant", "content": error_msg}
+        )
     else:
         # Show extracted params
         with st.expander("🧠 Extracted Query Parameters", expanded=False):
@@ -78,7 +82,9 @@ if prompt := st.chat_input("Ask something about VCell models..."):
         if "error" in api_data:
             error_msg = f"Error querying VCell API: {api_data['error']}"
             st.chat_message("assistant").markdown(error_msg)
-            st.session_state.chat_history.append({"role": "assistant", "content": error_msg})
+            st.session_state.chat_history.append(
+                {"role": "assistant", "content": error_msg}
+            )
         else:
             # Show API data
             with st.expander("📦 VCell API Response", expanded=False):
@@ -100,7 +106,9 @@ Generate a helpful, detailled human-readable summary of the results. Explain the
                 llm_response = get_llm_response(llm_summary_prompt)
 
             st.chat_message("assistant").markdown(llm_response)
-            st.session_state.chat_history.append({"role": "assistant", "content": llm_response})
+            st.session_state.chat_history.append(
+                {"role": "assistant", "content": llm_response}
+            )
 
             # STEP 4: Show Diagrams
             diagram_urls = get_diagram_urls(api_data)
@@ -112,3 +120,21 @@ Generate a helpful, detailled human-readable summary of the results. Explain the
                         st.image(url, use_container_width=True)
                     except:
                         st.markdown(f"[View Diagram]({url})")
+
+            # STEP 5: Show SBML and VCML Download Links
+            bmkeys = get_bmkeys(api_data)
+
+            if bmkeys:
+                st.markdown("### 📥 Download BioModel Files")
+
+                for bmkey in bmkeys:
+                    st.markdown(
+                        f"""
+                        **BioModel ID:** `{bmkey}`  
+                        🔹 [Download SBML](https://vcell.cam.uchc.edu/api/v0/biomodel/{bmkey}/biomodel.sbml)  
+                        🔹 [Download VCML](https://vcell.cam.uchc.edu/api/v0/biomodel/{bmkey}/biomodel.vcml)
+                        """,
+                        unsafe_allow_html=True
+                    )
+            else:
+                st.warning("⚠️ No BioModel keys found in the API response.")

@@ -3,8 +3,10 @@ import json
 from utils.params_extraction import get_path_params
 from utils.llm_helper import get_llm_response
 from vcelldb.vcell_api import query_vcell_models
+from PIL import Image
 
-st.set_page_config(page_title="💬 VCell Chatbot", layout="centered")
+favicon = Image.open("misc/favi.ico")
+st.set_page_config(page_title="VCell Chatbot Demo", page_icon=favicon, layout="centered")
 
 # Header
 col1, col2, col3 = st.columns([1, 4, 1])
@@ -14,10 +16,27 @@ with col1:
 
 with col2:
     st.markdown(
-        "<h1 style='text-align: center; margin-bottom: 0;'>🤖 VCell BioModel Chatbot Demo</h1>"
-        "<p style='text-align: center; font-size: 18px;'>Built for Google Summer of Code 2025</p>",
+        """
+        <h1 style='text-align: center; margin-bottom: 0;'>🤖 VCell BioModel Chatbot Demo</h1>
+        <p style='text-align: center; font-size: 18px;'>Demo Built for Google Summer of Code 2025</p>
+        <p style='text-align: center; margin-top: 0.5em; font-size: 16px;'>
+            <a href='https://www.linkedin.com/in/kacem-mathlouthi/' target='_blank' style='text-decoration: none; margin-right: 20px;'>
+                <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg' alt='LinkedIn' width='22' style='vertical-align: middle; margin-right: 6px;'/>
+                LinkedIn
+            </a>
+            <a href='https://github.com/KacemMathlouthi/VCell-Demo' target='_blank' style='text-decoration: none; margin-right: 20px;'>
+                <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' alt='GitHub' width='22' style='vertical-align: middle; margin-right: 6px;'/>
+                GitHub
+            </a>
+            <a href='mailto:kacem.mathlouthi@insat.ucar.tn' style='text-decoration: none;'>
+                <img src='https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg' alt='Gmail' width='22' style='vertical-align: middle; margin-right: 6px;'/>
+                Email
+            </a>
+        </p>
+        """,
         unsafe_allow_html=True
     )
+
 
 with col3:
     st.image("misc/NRNB.png", width=200) 

@@ -136,8 +136,3 @@ VCell-Demo/
 ## License
 
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute it with proper attribution.
-```
-
----
-
-Let me know if you want a shorter version for Hugging Face Spaces itself (as `README.md` is also shown there), or if you want to tweak the formatting further.

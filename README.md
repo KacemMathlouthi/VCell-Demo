@@ -4,65 +4,79 @@
   <img src="misc/gsoc.png" alt="Google Summer of Code Logo" width="100"/>
   <img src="misc/NRNB.png" alt="NRNB Logo" width="200"/>
   <br><br>
-  <a href="https://share.streamlit.io/KacemMathlouthi/VCell-Demo">
-    <img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg" alt="View in Streamlit" />
+  <a href="https://kacemath-vcell-demo.hf.space/" target="_blank">
+    <img src="https://img.shields.io/badge/HuggingFace-Space-blue?logo=huggingface" alt="Try it on Hugging Face Spaces" />
   </a>
 </p>
 
-This demo presents an intelligent chatbot interface for querying and interpreting biomodels stored in the [VCell BioModel Database](https://vcell.cam.uchc.edu/api/v0/biomodel). It enables users to interact with biological modeling resources using natural language and provides structured outputs, model metadata, downloadable files, and visualizations in real time. This work was developed as a demo for the NRNB Organization for **Google Summer of Code 2025**.
+---
+
+## Try It Online
+
+You can test the live chatbot application here:
+
+[https://kacemath-vcell-demo.hf.space/](https://kacemath-vcell-demo.hf.space/)
+
+---
+
+## About the Project
+
+This demo presents a chatbot for querying and interpreting BioModels stored in the [VCell BioModel Database](https://vcell.cam.uchc.edu/api/v0/biomodel). Developed as a demo for Google Summer of Code 2025 under the NRNB organization, the app enables users to interact with biological models using natural language, receiving structured outputs, downloadable files, and real-time visualisations.
 
 <p align="center">
-  <img src="https://i.imgur.com/FgayjY9.png" alt="GSoC VCell Demo" width = "600" />
+  <img src="https://i.imgur.com/FgayjY9.png" alt="Overview Image" width="600"/>
 </p>
 
 ---
 
-<h1 align="center">Overview</h1>
-This chatbot is an AI-powered assistant capable of:
-- Interpreting natural language queries
-- Extracting structured parameters
-- Querying the VCell API
-- Summarizing model data in a human-readable way using a large language model (LLM)
-- Visualizing model diagrams
-- Providing downloadable model files
+## Overview
+
+The chatbot can:
+- Understand natural language queries
+- Extract structured query parameters
+- Query the VCell BioModel API
+- Generate human-readable summaries using a language model
+- Visualise model diagrams
+- Provide download links for SBML and VCML files
 
 ---
 
-<h1 align="center">Features</h1>
+## Features
 
 <p align="center">
-  <img src="misc/demo.gif" alt="GSoC VCell Demo" width = "600" />
+  <img src="misc/demo.gif" alt="VCell Chatbot Demo" width="600"/>
 </p>
 
-- **Natural Language Interface** — Query the database with simple English prompts
-- **LLM Parameters Extraction** — Uses LLaMA 3 to extract structured parameters
-- **VCell API Integration** — Supports dynamic querying with filters like author, category, biomodelid...
-- **Summarization** — Generates high-level descriptions of model contents in a human
-[gif of parameters extraction, API response and summarization]
-- **Visualization** — Displays system reaction diagrams from the API
-- **Download Options** — Direct links to SBML and VCML formats for downstream use
-[gif of downloading the provided files and visualizations]
-- **Streamlit UI** — Minimalist, responsive, and easy to deploy
-
+- Natural Language Interface — Ask simple questions like “List all models by user ion”
+- LLM-Powered Extraction — LLaMA 3 extracts query parameters from your prompt
+- VCell API Integration — Dynamically fetches real model data
+- Summarisation — Converts raw data into clear, helpful answers
+- Visual Diagrams — Renders model reaction networks
+- Download Options — Instantly download SBML and VCML formats
+- Streamlit UI — Clean, responsive, deploy-ready interface
 
 ---
 
-<h1 align="center">Technologies Used</h1>
-- Python
+## Technologies Used
+
+- Python 3.10+
 - Streamlit
-- Groq API for the LLM (LLaMA 3.3-70B)
+- Groq API (LLaMA 3.3 70B)
 - VCell Public API
-- Pydantic (parameter schema)
-- Dotenv (secret management)
+- Pydantic
+- Dotenv
 
 ---
 
 ## Getting Started
+
 ### Prerequisites
-- Python 3.10 or higher
+
+- Python 3.10 or later
 - A valid Groq API key
 
 ### Installation
+
 ```bash
 git clone https://github.com/KacemMathlouthi/VCell-Demo.git
 cd VCell-Demo
@@ -73,51 +87,57 @@ pip install -r requirements.txt
 
 ### Configuration
 
-Create a `.env` file at the root of the project:
+Create a `.env` file at the root with your Groq API key:
 
 ```env
 LLM_API_KEY=your_groq_api_key_here
 ```
 
-### Run the Application
+### Run the App
 
 ```bash
 streamlit run app.py
 ```
 
-Visit `http://localhost:8501` to start using the chatbot.
+Visit `http://localhost:8501` in your browser.
 
 ---
 
 ## Example Prompts
-Here are some questions the chatbot can understand:
+
+You can ask the chatbot things like:
+
 - `List all public models by user ion`
 - `Find the model with ID 201844485`
 - `Show VCell models related to calcium`
+- `Get educational BioModels created after 2020`
 
 ---
 
 ## Project Structure
+
 ```
-├── app.py                     # Main application entry point
+VCell-Demo/
+├── app.py                     # Main Streamlit app
 ├── requirements.txt           # Project dependencies
-├── .env                       # Environment variable for API key
-├── .streamlit/config.toml     # UI configuration
+├── .env                       # Environment variables
+├── .streamlit/config.toml     # Theme config
 ├── vcelldb/
-│   ├── vcell_api.py           # Wrapper for VCell API calls
-│   ├── diagram.py             # Utilities for diagrams and downloads
-│   └── params_model.py        # Schema definitions
+│   ├── vcell_api.py           # VCell API wrapper
+│   ├── diagram.py             # Diagram & file URL utils
+│   └── params_model.py        # Pydantic model schema
 └── utils/
-    ├── llm_helper.py          # LLM instance creation and response generation
-    └── params_extraction.py   # Prompt-to-parameter process
+    ├── llm_helper.py          # Groq API + LLM prompt handling
+    └── params_extraction.py   # Prompt-to-parameter logic
 ```
 
 ---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the software with proper attribution.
+This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute it with proper attribution.
+```
 
-Special thanks to the **Virtual Cell (VCell)** team and the **National Resource for Network Biology (NRNB)** for their support.
+---
 
-For more information, visit [vcell.org](https://vcell.org).
+Let me know if you want a shorter version for Hugging Face Spaces itself (as `README.md` is also shown there), or if you want to tweak the formatting further.

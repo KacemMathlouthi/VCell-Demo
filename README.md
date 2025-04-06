@@ -29,6 +29,11 @@ This chatbot is an AI-powered assistant capable of:
 ---
 
 ## Features
+
+<p align="center">
+  <img src="misc/demo.gif" alt="GSoC VCell Demo" width = "600" />
+</p>
+
 - **Natural Language Interface** — Query the database with simple English prompts
 - **LLM Parameters Extraction** — Uses LLaMA 3 to extract structured parameters
 - **VCell API Integration** — Supports dynamic querying with filters like author, category, biomodelid...

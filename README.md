@@ -9,9 +9,11 @@
   </a>
 </p>
 
-This demo presents an intelligent chatbot interface for querying and interpreting biomodels stored in the [VCell BioModel Database](https://vcell.cam.uchc.edu/api/v0/biomodel). It enables users to interact with biological modeling resources using natural language and provides structured outputs, model metadata, downloadable files, and visualizations in real time.
+This demo presents an intelligent chatbot interface for querying and interpreting biomodels stored in the [VCell BioModel Database](https://vcell.cam.uchc.edu/api/v0/biomodel). It enables users to interact with biological modeling resources using natural language and provides structured outputs, model metadata, downloadable files, and visualizations in real time. This work was developed as a demo for the NRNB Organization for **Google Summer of Code 2025**.
 
-This work was developed as a demo for the NRNB Organization for **Google Summer of Code 2025**.
+<p align="center">
+  <img src="https://i.imgur.com/FgayjY9.png" alt="GSoC VCell Demo" width = "600" />
+</p>
 
 ---
 

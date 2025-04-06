@@ -17,7 +17,7 @@ This demo presents an intelligent chatbot interface for querying and interpretin
 
 ---
 
-## Overview
+<h1 align="center">Overview</h1>
 This chatbot is an AI-powered assistant capable of:
 - Interpreting natural language queries
 - Extracting structured parameters
@@ -28,7 +28,7 @@ This chatbot is an AI-powered assistant capable of:
 
 ---
 
-## Features
+<h1 align="center">Features</h1>
 
 <p align="center">
   <img src="misc/demo.gif" alt="GSoC VCell Demo" width = "600" />
@@ -47,7 +47,7 @@ This chatbot is an AI-powered assistant capable of:
 
 ---
 
-## Technologies Used
+<h1 align="center">Technologies Used</h1>
 - Python
 - Streamlit
 - Groq API for the LLM (LLaMA 3.3-70B)

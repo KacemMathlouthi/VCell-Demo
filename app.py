@@ -60,6 +60,52 @@ st.markdown("""
 
 st.markdown("---")
 
+# Sidebar Configuration
+st.sidebar.title("🔧 LLM Settings")
+
+if "llm_settings" not in st.session_state:
+    st.session_state.llm_settings = {
+        "provider": "Groq",
+        "groq_model": "llama-3.3-70b-versatile",
+        "groq_api_key": "",
+        "ollama_model": "llama3"
+    }
+
+# Provider selection
+provider = st.sidebar.radio("Choose LLM Provider:", ["Groq (Cloud)", "Ollama (Local)"])
+
+# Cloud (Groq)
+if provider == "Groq (Cloud)":
+    groq_api_key = st.sidebar.text_input("Groq API Key", type="password", value=st.session_state.llm_settings.get("groq_api_key", ""))
+    groq_model = st.sidebar.selectbox(
+        "Choose Groq Model:",
+        [
+            "llama-3.3-70b-versatile",
+            "llama-3-70b-instruct",
+            "mixtral-8x7b-instruct",
+            "gemma-7b-it"
+        ],
+        index=0
+    )
+
+# Local (Ollama)
+else:
+    ollama_model = st.sidebar.text_input("Ollama Model Name (e.g., llama3)", value=st.session_state.llm_settings.get("ollama_model", ""))
+
+# Save Settings Button
+if st.sidebar.button("Save Settings"):
+    if provider == "Groq (Cloud)":
+        st.session_state.llm_settings.update({
+            "provider": "Groq",
+            "groq_model": groq_model,
+            "groq_api_key": groq_api_key
+        })
+    else:
+        st.session_state.llm_settings.update({
+            "provider": "Ollama",
+            "ollama_model": ollama_model
+        })
+    st.sidebar.success("✅ Settings saved!")
 
 
 # Session Initialization

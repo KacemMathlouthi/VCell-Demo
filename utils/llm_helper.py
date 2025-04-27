@@ -5,8 +5,6 @@ from openai import OpenAI
 
 load_dotenv()
 
-llm_client = None
-
 # LLM Agnostic Code
 def get_llm_response(prompt: str, settings: dict):
     """
@@ -43,12 +41,10 @@ def get_llm_response(prompt: str, settings: dict):
         client = OpenAI(base_url = 'http://localhost:11434/v1', api_key='ollama')
         try:
             response = client.chat.completions.create(
-            model="llama2",
+            model=model_name,
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Who won the world series in 2020?"},
-                {"role": "assistant", "content": "The LA Dodgers won in 2020."},
-                {"role": "user", "content": "Where was it played?"}
+                {"role": "system", "content": "You are an AI assistant helping users explore VCell BioModels."},
+                {"role": "user", "content": prompt},
             ]
             )
             return response.choices[0].message.content

@@ -40,6 +40,7 @@ def query_vcell_models(params: dict):
     Returns:
         dict: JSON response from the VCell API or error message.
     """
+    print(params)
     clean_params = {k: v for k, v in params.items() if k in ALLOWED_PARAMS}
 
     if "category" in clean_params and clean_params["category"] not in VALID_CATEGORIES:

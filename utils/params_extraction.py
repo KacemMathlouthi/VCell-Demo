@@ -65,7 +65,7 @@ def get_path_params(user_prompt: str, settings: dict):
         model_name = settings.get("model", "llama3.2:1b")
         client = OpenAI(base_url = 'http://localhost:11434/v1', api_key='ollama')
         try:
-            response = client.chat.completions.create(
+            response = client.beta.chat.completions.parse(
                 model=model_name,
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
@@ -73,7 +73,9 @@ def get_path_params(user_prompt: str, settings: dict):
                 ],
                 response_format=QueryParams,
             )
-            return response.choices[0].message.parsed
+            content = response.choices[0].message.parsed
+            params = content.model_dump(exclude_none=True)
+            return params
         except Exception as e:
             return f"Error (Ollama): {str(e)}"
     else:

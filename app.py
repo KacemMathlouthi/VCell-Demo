@@ -108,9 +108,13 @@ if prompt := st.chat_input("Ask something about VCell biomodels..."):
     st.chat_message("user").markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
 
+    llm_settings = st.session_state.get("llm_settings", {})
+    print(llm_settings)
+
     # Step 1: Feature extraction
     with st.spinner("🔍 Extracting features..."):
-        extracted_params = get_path_params(prompt)
+        extracted_params = get_path_params(prompt, llm_settings)
+        print(extracted_params)
 
     if "error" in extracted_params:
         error_msg = f"Error extracting features: {extracted_params['error']}"
@@ -151,7 +155,7 @@ VCell API response:
 
 Generate a helpful, detailled human-readable summary of the results. Explain the model, the simulations and the applications.
 """
-                llm_response = get_llm_response(llm_summary_prompt)
+                llm_response = get_llm_response(llm_summary_prompt, llm_settings)
 
             st.chat_message("assistant").markdown(llm_response)
             st.session_state.chat_history.append(

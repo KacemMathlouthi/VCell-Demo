@@ -61,51 +61,37 @@ st.markdown("""
 st.markdown("---")
 
 # Sidebar Configuration
-st.sidebar.title("🔧 LLM Settings")
+st.sidebar.title("LLM Provider Settings")
+llm_provider = st.sidebar.selectbox("Select LLM Provider", ["Groq (Cloud)", "Ollama (Local)"])
 
-if "llm_settings" not in st.session_state:
-    st.session_state.llm_settings = {
-        "provider": "Groq",
-        "groq_model": "llama-3.3-70b-versatile",
-        "groq_api_key": "",
-        "ollama_model": "llama3"
-    }
-
-# Provider selection
-provider = st.sidebar.radio("Choose LLM Provider:", ["Groq (Cloud)", "Ollama (Local)"])
-
-# Cloud (Groq)
-if provider == "Groq (Cloud)":
-    groq_api_key = st.sidebar.text_input("Groq API Key", type="password", value=st.session_state.llm_settings.get("groq_api_key", ""))
+if llm_provider == "Groq (Cloud)":
     groq_model = st.sidebar.selectbox(
-        "Choose Groq Model:",
-        [
-            "llama-3.3-70b-versatile",
-            "llama-3-70b-instruct",
-            "mixtral-8x7b-instruct",
-            "gemma-7b-it"
-        ],
-        index=0
+        "Choose Groq Model",
+        ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "meta-llama/llama-4-maverick-17b-128e-instruct", "meta-llama/llama-4-scout-17b-16e-instruct"]
     )
-
-# Local (Ollama)
+    groq_api_key = st.sidebar.text_input("Enter Groq API Key", type="password")
+    if groq_api_key:
+        st.session_state["llm_settings"] = {"provider": "groq", "api_key": groq_api_key, "model": groq_model}
 else:
-    ollama_model = st.sidebar.text_input("Ollama Model Name (e.g., llama3)", value=st.session_state.llm_settings.get("ollama_model", ""))
+    st.sidebar.markdown("""
+    Make sure Ollama is installed and running.
+    You can pull a model by running the following command in your terminal:
+    ```bash
+    ollama pull llama3
+    ```
+    Replace `llama3` with your desired model name (like `mistral`, `qwen`, etc.).                 
+    Then you have to start the model by running the following command:
+    ```bash
+    ollama run llama3
+    ```
+    """)
+    ollama_model = st.sidebar.text_input("Enter Local Ollama Model Name (e.g., llama3, mistral, etc.)")
+    if ollama_model:
+        st.session_state["llm_settings"] = {"provider": "ollama", "model": ollama_model}
 
-# Save Settings Button
+# Save Button
 if st.sidebar.button("Save Settings"):
-    if provider == "Groq (Cloud)":
-        st.session_state.llm_settings.update({
-            "provider": "Groq",
-            "groq_model": groq_model,
-            "groq_api_key": groq_api_key
-        })
-    else:
-        st.session_state.llm_settings.update({
-            "provider": "Ollama",
-            "ollama_model": ollama_model
-        })
-    st.sidebar.success("✅ Settings saved!")
+    st.success("✅ LLM settings saved!")
 
 
 # Session Initialization
